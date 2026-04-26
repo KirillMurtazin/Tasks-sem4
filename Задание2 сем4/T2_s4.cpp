@@ -2,11 +2,21 @@
 #include <vector>
 #include <algorithm>
 #include <sstream>
-#include <locale.h>
+#include <locale>
+#include <iterator>
 
 using namespace std;
 
-int main() 
+void printVector(const vector<int>& v, const string& message)
+{
+    cout << message;
+    for (int num : v) {
+        cout << num << " ";
+    }
+    cout << endl;
+}
+
+int main()
 {
     setlocale(LC_ALL, "RU");
     vector<int> V;
@@ -15,12 +25,9 @@ int main()
     cout << "Введите целые числа через пробел: ";
     getline(cin, input);
 
-    // Разбираем введенную строку
     istringstream iss(input);
-    int num;
-    while (iss >> num) {
-        V.push_back(num);
-    }
+    istream_iterator<int> start(iss), end;
+    V.assign(start, end);
 
     // Проверяем, что введены только целые числа
     if (V.empty()) {
@@ -28,11 +35,7 @@ int main()
         return 1;
     }
 
-    cout << "Исходный вектор: ";
-    for (int num : V) {
-        cout << num << " ";
-    }
-    cout << endl;
+    printVector(V, "Исходный вектор: ");
     cout << "Размер вектора: " << V.size() << endl;
 
     // Проверяем условия задачи
@@ -52,11 +55,7 @@ int main()
     // Удаляем три средних элемента одним вызовом erase
     V.erase(V.begin() + (middleIndex - 1), V.begin() + (middleIndex + 2));
 
-    cout << "Вектор после удаления трех средних элементов: ";
-    for (int num : V) {
-        cout << num << " ";
-    }
-    cout << endl;
+    printVector(V, "Вектор после удаления трех средних элементов: ");
     cout << "Новый размер вектора: " << V.size() << endl;
 
     return 0;
