@@ -9,7 +9,8 @@
 
 using namespace std;
 
-struct point {
+struct point
+{
     int x;
     double y;
     string name;
@@ -20,44 +21,55 @@ struct point {
 };
 
 // Перегрузка оператора сложения для point
-point operator+(const point& a, const point& b) {
+point operator+(const point& a, const point& b)
+{
     return point(a.x + b.x, a.y + b.y, a.name + b.name);
 }
 
 // Перегрузка операторов ввода/вывода
-istream& operator>>(istream& is, point& p) {
+istream& operator>>(istream& is, point& p)
+{
     is >> p.x >> p.y >> p.name;
     return is;
 }
 
-ostream& operator<<(ostream& os, const point& p) {
+ostream& operator<<(ostream& os, const point& p)
+{
     os << p.x << " " << p.y << " " << p.name;
     return os;
 }
 
-int main() 
+// Функция для вывода вектора точек
+void printVector(const vector<point>& v, const string& message)
+{
+    cout << message;
+    for (vector<point>::const_iterator it = v.begin(); it != v.end(); ++it)
+    {
+        cout << *it << endl;
+    }
+}
+
+int main()
 {
     setlocale(LC_ALL, "RU");
+
     // Открываем файлы для чтения
     ifstream file1("name1.txt");
     ifstream file2("name2.txt");
 
     // Проверка открытия файлов
-    if (!file1.is_open() || !file2.is_open()) {
+    if (!file1.is_open() || !file2.is_open())
+    {
         cout << "Ошибка открытия файлов" << endl;
         return 1;
     }
 
-    // Чтение данных в векторы
-    vector<point> V1, V2;
-    point p;
+    // Чтение данных в векторы с помощью итераторов
+    istream_iterator<point> start1(file1), end1;
+    vector<point> V1(start1, end1);
 
-    while (file1 >> p) {
-        V1.push_back(p);
-    }
-    while (file2 >> p) {
-        V2.push_back(p);
-    }
+    istream_iterator<point> start2(file2), end2;
+    vector<point> V2(start2, end2);
 
     file1.close();
     file2.close();
@@ -66,7 +78,8 @@ int main()
     cout << "Прочитано " << V2.size() << " элементов из name2" << endl;
 
     // Проверка количества элементов
-    if (V1.size() != V2.size()) {
+    if (V1.size() != V2.size())
+    {
         cout << "Ошибка: разное количество элементов" << endl;
         return 1;
     }
@@ -75,17 +88,19 @@ int main()
     transform(V1.begin(), V1.end(), V2.begin(), V1.begin(), plus<point>());
 
     cout << "Сложение выполнено" << endl;
+    cout << "Результат сложения:" << endl;
+    printVector(V1, "");
 
-    // Запись результата в файл
+    // Запись результата в файл с помощью итераторов
     ofstream outFile("name1.txt");
     if (!outFile.is_open()) {
         cout << "Ошибка открытия файла для записи" << endl;
         return 1;
     }
 
-    for (const auto& point : V1) {
-        outFile << point << endl;
-    }
+    ostream_iterator<point> outIt(outFile, "\n");
+    copy(V1.begin(), V1.end(), outIt);
+
     outFile.close();
 
     cout << "Результат записан в name1" << endl;
