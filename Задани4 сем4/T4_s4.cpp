@@ -1,4 +1,8 @@
-﻿#include <iostream>
+﻿/**
+ * @brief Используемые библиотеки
+ */
+
+#include <iostream>
 #include <fstream>
 #include <vector>
 #include <algorithm>
@@ -9,6 +13,9 @@
 
 using namespace std;
 
+/**
+ * @brief Структура точки с координатами и именем
+ */
 struct point
 {
     int x;
@@ -20,26 +27,37 @@ struct point
         : x(x_val), y(y_val), name(name_val) {}
 };
 
-// Перегрузка оператора сложения для point
+/**
+ * @brief Перегрузка оператора сложения для point
+ */
 point operator+(const point& a, const point& b)
 {
     return point(a.x + b.x, a.y + b.y, a.name + b.name);
 }
 
-// Перегрузка операторов ввода/вывода
+/**
+ * @brief Перегрузка оператора ввода для point
+ */
 istream& operator>>(istream& is, point& p)
 {
     is >> p.x >> p.y >> p.name;
     return is;
 }
 
+/**
+ * @brief Перегрузка оператора вывода для point
+ */
 ostream& operator<<(ostream& os, const point& p)
 {
     os << p.x << " " << p.y << " " << p.name;
     return os;
 }
 
-// Функция для вывода вектора точек
+/**
+ * @brief Выводит содержимое вектора точек
+ * @param v Вектор для вывода
+ * @param message Сообщение перед выводом
+ */
 void printVector(const vector<point>& v, const string& message)
 {
     cout << message;
@@ -49,6 +67,9 @@ void printVector(const vector<point>& v, const string& message)
     }
 }
 
+/**
+ * @brief Главная функция
+ */
 int main()
 {
     setlocale(LC_ALL, "RU");
