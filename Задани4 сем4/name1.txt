@@ -1,0 +1,4 @@
+10 5.5 apple
+20 3.2 banana
+30 7.8 cherry
+40 2.1 date
