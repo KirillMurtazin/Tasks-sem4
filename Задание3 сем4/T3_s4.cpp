@@ -1,4 +1,8 @@
-﻿#include <iostream>
+﻿/**
+ * @brief Используемые библиотеки
+ */
+
+#include <iostream>
 #include <vector>
 #include <map>
 #include <algorithm>
@@ -8,6 +12,11 @@
 
 using namespace std;
 
+/**
+ * @brief Выводит содержимое вектора
+ * @param v Вектор для вывода
+ * @param message Сообщение перед выводом
+ */
 void printVector(const vector<int>& v, const string& message)
 {
     cout << message;
@@ -18,7 +27,11 @@ void printVector(const vector<int>& v, const string& message)
     cout << endl;
 }
 
-// Функция для вывода мультиотображения
+/**
+ * @brief Выводит содержимое мультиотображения
+ * @param m Мультиотображение для вывода
+ * @param message Заголовочное сообщение
+ */
 void printMultimap(const multimap<int, int>& m, const string& message)
 {
     cout << message << endl;
@@ -32,6 +45,9 @@ void printMultimap(const multimap<int, int>& m, const string& message)
     cout << "********************************************" << endl;
 }
 
+/**
+ * @brief Главная функция
+ */
 int main()
 {
     setlocale(LC_ALL, "RU");
